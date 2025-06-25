@@ -1,0 +1,41 @@
+# .NET MAUI/.NET Core
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.DS_Store
+.vs/
+# Mac build artifacts
+*.app
+*.xcarchive
+# Windows build artifacts
+*.exe
+*.dll
+*.pdb
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+*.msi
+*.psess
+*.vsp
+*.vspscc
+*.vssscc
+*.cache
+*.dbmdl
+*.bak
+*.log
+*.vsconfig
+# Rider/JetBrains
+.idea/
+*.sln.iml
+# Maui specific
+**/bin/
+**/obj/
+# Images and screenshots
+!docs/*.png
+# Ignore local settings
+Properties/launchSettings.json
