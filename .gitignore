@@ -8,6 +8,7 @@ obj/
 *.userprefs
 *.DS_Store
 .vs/
+.vscode/
 # Mac build artifacts
 *.app
 *.xcarchive
