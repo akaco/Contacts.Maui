@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contacts.Maui.Views.ContactsPage"
+             Title="Contacts"
+             BackgroundColor="#f8f9fa">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Top Navigation Bar with Profile -->
+        <Grid Grid.Row="0"
+                BackgroundColor="White"
+                Padding="20,10,20,15">
+            <Grid.Shadow>
+                <Shadow Brush="Black"
+                        Opacity="0.1"
+                        Radius="8"
+                        Offset="0,2"/>
+            </Grid.Shadow>
+
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+
+                <!-- Profile Section -->
+                <StackLayout Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="12"
+                        VerticalOptions="Center">
+                    <Frame Padding="0"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            CornerRadius="20"
+                           IsClippedToBounds="True"
+                            HasShadow="False"
+                            BackgroundColor="#e3f2fd">
+                        <Image Source="profile_avatar.png"
+                                Aspect="AspectFill"
+                                HeightRequest="40"
+                                WidthRequest="40"/>
+                    </Frame>
+                    <StackLayout Spacing="2"
+                            VerticalOptions="Center">
+                        <Label Text="John Doe"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                TextColor="#1a1a1a"/>
+                        <Label Text="john.doe@email.com"
+                                FontSize="12"
+                                TextColor="#666"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <!-- Search Button -->
+                <Button Grid.Column="2"
+                        Text="&#xf002;"
+                        FontFamily="FontAwesomeSolid"
+                        FontSize="16"
+                        TextColor="#666"
+                        BackgroundColor="Transparent"
+                        BorderWidth="0"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        CornerRadius="20"
+                        Margin="5,0"/>
+
+                <!-- Add Contact Button -->
+                <Button Grid.Column="3"
+                        Text="&#xf067;"
+                        FontFamily="FontAwesomeSolid"
+                        FontSize="16"
+                        TextColor="White"
+                        BackgroundColor="#007bff"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        CornerRadius="20"
+                        x:Name="btnAddContact"
+                        Clicked="btnAddContact_Clicked"
+                        Margin="5,0">
+                    <Button.Shadow>
+                        <Shadow Brush="#007bff"
+                                Opacity="0.3"
+                                Radius="8"
+                                Offset="0,4"/>
+                    </Button.Shadow>
+                </Button>
+
+            </Grid>
+        </Grid>
+
+        <!-- Main Content Area -->
+        <ScrollView Grid.Row="1"
+                x:Name="mainScrollView"
+                Scrolled="OnScrolled">
+            <StackLayout Spacing="0"
+                    Padding="0">
+
+                <!-- Header Section -->
+                <StackLayout x:Name="headerSection"
+                        Padding="20,25,20,20"
+                        BackgroundColor="White">
+                    <Label Text="My Contacts"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="#1a1a1a"
+                           Margin="0,0,0,5"/>
+                    <Label x:Name="contactCountLabel"
+                           Text="124 contacts"
+                           FontSize="14"
+                           TextColor="#666"/>
+
+                    <!-- Quick Actions -->
+                    <Grid ColumnDefinitions="*,*"
+                            Margin="0,20,0,0"
+                            ColumnSpacing="15">
+                        <Button Grid.Column="0"
+                                Text="&#xf0c0; Groups"
+                                FontFamily="FontAwesomeSolid"
+                                FontSize="14"
+                                TextColor="#007bff"
+                                BackgroundColor="#f0f8ff"
+                                BorderColor="#007bff"
+                                BorderWidth="1"
+                                HeightRequest="45"
+                                CornerRadius="12"/>
+                        <Button Grid.Column="1"
+                                Text="&#xf005; Favorites"
+                                FontFamily="FontAwesomeSolid"
+                                FontSize="14"
+                                TextColor="#f7b731"
+                                BackgroundColor="#fffbf0"
+                                BorderColor="#f7b731"
+                                BorderWidth="1"
+                                HeightRequest="45"
+                                CornerRadius="12"/>
+                    </Grid>
+                </StackLayout>
+
+                <!-- Contacts List -->
+                <CollectionView x:Name="contactsCollectionView"
+                                ItemsSource="{Binding Contacts}"
+                                SelectionMode="Single"
+                                SelectionChanged="OnContactSelected"
+                                BackgroundColor="#f8f9fa"
+                                Margin="0,10,0,0">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                ItemSpacing="2"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="20,12"
+                                    BackgroundColor="White">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnContactTapped"/>
+                                </Grid.GestureRecognizers>
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor"
+                                                        Value="White"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor"
+                                                        Value="#f0f8ff"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Grid ColumnDefinitions="Auto,*,Auto"
+                                        RowDefinitions="Auto">
+
+                                    <!-- Avatar with Online Status -->
+                                    <Grid Grid.Column="0"
+                                            VerticalOptions="Start">
+                                        <Frame Padding="0"
+                                               HeightRequest="52"
+                                               WidthRequest="52"
+                                               CornerRadius="26"
+                                               IsClippedToBounds="True"
+                                               HasShadow="False"
+                                               BackgroundColor="#e3f2fd">
+                                            <Image Source="{Binding Avatar}"
+                                                   Aspect="AspectFill"
+                                                   HeightRequest="52"
+                                                   WidthRequest="52"/>
+                                        </Frame>
+                                        <!-- Online Status Indicator -->
+                                        <Ellipse Fill="#4caf50"
+                                                 WidthRequest="16"
+                                                 HeightRequest="16"
+                                                 HorizontalOptions="End"
+                                                 VerticalOptions="Start"
+                                                 Margin="0,-2,-2,0"
+                                                 IsVisible="{Binding IsOnline}"/>
+                                    </Grid>
+
+                                    <!-- Contact Information -->
+                                    <StackLayout Grid.Column="1"
+                                                 Spacing="4"
+                                                 Padding="15,0,0,0"
+                                                 VerticalOptions="Center">
+
+                                        <!-- Name and Favorite -->
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Grid.Column="0"
+                                                   Text="{Binding Name}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="17"
+                                                   TextColor="#1a1a1a"
+                                                   LineBreakMode="TailTruncation"/>
+                                            <Label Grid.Column="1"
+                                                   Text="&#xf005;"
+                                                   FontFamily="FontAwesomeSolid"
+                                                   FontSize="14"
+                                                   TextColor="#f7b731"
+                                                   IsVisible="{Binding IsFavorite}"
+                                                   VerticalOptions="Center"/>
+                                        </Grid>
+
+                                        <!-- Phone Number -->
+                                        <StackLayout Orientation="Horizontal"
+                                                Spacing="8">
+                                            <Label Text="&#xf095;"
+                                                   FontFamily="FontAwesomeSolid"
+                                                   FontSize="12"
+                                                   TextColor="#666"
+                                                   VerticalOptions="Center"/>
+                                            <Label Text="{Binding PhoneNumber}"
+                                                   FontSize="14"
+                                                   TextColor="#666"
+                                                   VerticalOptions="Center"
+                                                   LineBreakMode="TailTruncation"/>
+                                        </StackLayout>
+
+                                        <!-- Email -->
+                                        <StackLayout Orientation="Horizontal"
+                                                Spacing="8">
+                                            <Label Text="&#xf0e0;"
+                                                   FontFamily="FontAwesomeSolid"
+                                                   FontSize="12"
+                                                   TextColor="#666"
+                                                   VerticalOptions="Center"/>
+                                            <Label Text="{Binding Email}"
+                                                   FontSize="14"
+                                                   TextColor="#666"
+                                                   VerticalOptions="Center"
+                                                   LineBreakMode="TailTruncation"/>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <!-- Action Buttons -->
+                                    <StackLayout Grid.Column="2"
+                                                 Orientation="Horizontal"
+                                                 Spacing="8"
+                                                 VerticalOptions="Center">
+
+                                        <!-- Call Button -->
+                                        <Button Text="&#xf095;"
+                                                FontFamily="FontAwesomeSolid"
+                                                FontSize="14"
+                                                TextColor="#4caf50"
+                                                BackgroundColor="#f1f8e9"
+                                                BorderWidth="0"
+                                                HeightRequest="36"
+                                                WidthRequest="36"
+                                                CornerRadius="18"
+                                                Clicked="OnCallClicked"/>
+
+                                        <!-- Message Button -->
+                                        <Button Text="&#xf4ad;"
+                                                FontFamily="FontAwesomeSolid"
+                                                FontSize="14"
+                                                TextColor="#2196f3"
+                                                BackgroundColor="#e3f2fd"
+                                                BorderWidth="0"
+                                                HeightRequest="36"
+                                                WidthRequest="36"
+                                                CornerRadius="18"
+                                                Clicked="OnMessageClicked"/>
+
+                                        <!-- More Options -->
+                                        <Button Text="&#xf142;"
+                                                FontFamily="FontAwesomeSolid"
+                                                FontSize="14"
+                                                TextColor="#666"
+                                                BackgroundColor="#f5f5f5"
+                                                BorderWidth="0"
+                                                HeightRequest="36"
+                                                WidthRequest="36"
+                                                CornerRadius="18"
+                                                x:Name="btnEditContact"
+                                                Clicked="btnEditContact_Clicked"/>
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

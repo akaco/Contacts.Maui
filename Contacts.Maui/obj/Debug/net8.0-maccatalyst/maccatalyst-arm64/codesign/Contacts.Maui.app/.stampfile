@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - --entitlements /Users/amirreza/Desktop/teat/Contacts.Maui/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/Entitlements.xcent /Users/amirreza/Desktop/teat/Contacts.Maui/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/Contacts.Maui.app

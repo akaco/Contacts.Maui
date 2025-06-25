@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contacts.Maui.Views.AddContactPage"
+             Title="Add Contact"
+             BackgroundColor="#f8f9fa">
+
+    <ScrollView Padding="20">
+        <StackLayout Spacing="20">
+
+            <!-- Header -->
+            <StackLayout Spacing="5">
+                <Label Text="Add New Contact"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="#1a1a1a"/>
+                <Label Text="Fill in the details below"
+                       FontSize="14"
+                       TextColor="#666"/>
+            </StackLayout>
+
+            <!-- Avatar Section -->
+            <StackLayout Spacing="10"
+                    HorizontalOptions="Center">
+                <Frame Padding="0"
+                       HeightRequest="100"
+                       WidthRequest="100"
+                       CornerRadius="50"
+                       IsClippedToBounds="True"
+                       HasShadow="False"
+                       BackgroundColor="#e3f2fd">
+                    <Image x:Name="avatarImage"
+                           Source="default_avatar.png"
+                           Aspect="AspectFill"/>
+                </Frame>
+                <Button Text="Change Photo"
+                        TextColor="#007bff"
+                        BackgroundColor="Transparent"
+                        BorderWidth="0"
+                        Clicked="OnChangePhotoClicked"/>
+            </StackLayout>
+
+            <!-- Form Fields -->
+            <StackLayout Spacing="15">
+
+                <!-- Name Field -->
+                <StackLayout Spacing="5">
+                    <Label Text="Full Name *"
+                            FontSize="14"
+                            TextColor="#333"/>
+                    <Frame BackgroundColor="White"
+                            Padding="15,12"
+                            CornerRadius="8"
+                            HasShadow="False"
+                            BorderColor="#e0e0e0">
+                        <Entry x:Name="nameEntry"
+                               Placeholder="Enter full name"
+                               PlaceholderColor="#999"
+                               TextColor="#333"/>
+                    </Frame>
+                </StackLayout>
+
+                <!-- Phone Field -->
+                <StackLayout Spacing="5">
+                    <Label Text="Phone Number *"
+                            FontSize="14"
+                            TextColor="#333"/>
+                    <Frame BackgroundColor="White"
+                            Padding="15,12"
+                            CornerRadius="8"
+                            HasShadow="False"
+                            BorderColor="#e0e0e0">
+                        <Entry x:Name="phoneEntry"
+                               Placeholder="Enter phone number"
+                               PlaceholderColor="#999"
+                               TextColor="#333"
+                               Keyboard="Telephone"/>
+                    </Frame>
+                </StackLayout>
+
+                <!-- Email Field -->
+                <StackLayout Spacing="5">
+                    <Label Text="Email Address"
+                            FontSize="14"
+                            TextColor="#333"/>
+                    <Frame BackgroundColor="White"
+                            Padding="15,12"
+                            CornerRadius="8"
+                            HasShadow="False"
+                            BorderColor="#e0e0e0">
+                        <Entry x:Name="emailEntry"
+                               Placeholder="Enter email address"
+                               PlaceholderColor="#999"
+                               TextColor="#333"
+                               Keyboard="Email"/>
+                    </Frame>
+                </StackLayout>
+
+                <!-- Favorite Switch -->
+                <StackLayout Orientation="Horizontal"
+                        Spacing="10">
+                    <Switch x:Name="favoriteSwitch"
+                            ThumbColor="#007bff"
+                            OnColor="#007bff"/>
+                    <Label Text="Add to Favorites"
+                           FontSize="16"
+                           TextColor="#333"
+                           VerticalOptions="Center"/>
+                </StackLayout>
+
+            </StackLayout>
+
+            <!-- Action Buttons -->
+            <StackLayout Spacing="12"
+                    Margin="0,20,0,0">
+                <Button Text="Save Contact"
+                        BackgroundColor="#007bff"
+                        TextColor="White"
+                        HeightRequest="50"
+                        CornerRadius="12"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Clicked="OnSaveClicked">
+                    <Button.Shadow>
+                        <Shadow Brush="#007bff"
+                                Opacity="0.3"
+                                Radius="8"
+                                Offset="0,4"/>
+                    </Button.Shadow>
+                </Button>
+
+                <Button Text="Cancel"
+                        BackgroundColor="Transparent"
+                        TextColor="#666"
+                        BorderColor="#ddd"
+                        BorderWidth="1"
+                        HeightRequest="50"
+                        CornerRadius="12"
+                        FontSize="16"
+                        Clicked="OnCancelClicked"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
