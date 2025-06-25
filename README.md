@@ -15,7 +15,6 @@ A beautiful, modern, cross-platform Contacts app built with .NET MAUI.
 
 ## Screenshots
 
-![Contacts List Screenshot](docs/screenshot-contacts-list.png)
 ![Simulator Screenshot](Contacts.Maui/Resources/Images/Simulator%20Screenshot.png)
 
 ## Getting Started
